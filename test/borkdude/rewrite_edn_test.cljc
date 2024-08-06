@@ -338,3 +338,8 @@
                  r/parse-string
                  (r/assoc-in [:aliases :neil] {})
                  str))))))
+
+(deftest issue-39-test
+  (let [edn-nodes (borkdude.rewrite-edn/parse-string "{:deps #:babashka{pods #:git{:url \"https://github.com/babashka/babashka.pods\", :sha \"6ad6045b94bc871c5107bfc75d39643b6c1bc8ba\"}}}")
+        nl-path '[:deps babashka/pods]]
+    (is (some? (r/get-in edn-nodes nl-path)))))
